@@ -21,3 +21,6 @@ permissions {
 }
 
 
+- add user repo extending jpa repo with findByUsername method
+
+- add user service implementano UserDetailsService e chaamndo metodo findbyusername tratando se o user nao existir
