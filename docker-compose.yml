@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: m1guelsb
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: my-db
+    ports:
+      - '5432:5432'
+    expose:
+      - 5432
