@@ -12,15 +12,15 @@ server:
     include-stacktrace: never
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/my-db
+    url: jdbc:postgresql://localhost:5433/mydb
     username: m1guelsb
     password: root
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: false
+    show-sql: true
 
 
