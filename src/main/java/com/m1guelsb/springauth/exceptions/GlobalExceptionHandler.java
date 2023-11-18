@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -34,7 +35,15 @@ public class GlobalExceptionHandler {
 
     List<String> errors = List.of(ex.getMessage());
 
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorsMap(errors));
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorsMap(errors));
+  }
+
+  @ExceptionHandler(BadCredentialsException.class)
+  public ResponseEntity<Map<String, List<String>>> handleBadCredentialsError(BadCredentialsException ex) {
+
+    List<String> errors = List.of(ex.getMessage());
+
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorsMap(errors));
   }
 
   private Map<String, List<String>> errorsMap(List<String> errors) {
