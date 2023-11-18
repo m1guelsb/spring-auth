@@ -1,7 +1,8 @@
 package com.m1guelsb.springauth.entities;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -10,19 +11,34 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.m1guelsb.springauth.dtos.enums.UserRole;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.Collection;
 import java.util.List;
 
+@Table()
 @Entity(name = "users")
-@Data
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   private String login;
+
   private String password;
+
+  @Enumerated(EnumType.STRING)
   private UserRole role;
 
   public User(String login, String password, UserRole role) {
