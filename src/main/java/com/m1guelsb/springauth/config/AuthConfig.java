@@ -23,32 +23,26 @@ public class AuthConfig {
   SecurityFilter securityFilter;
 
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+  SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
     return httpSecurity
         .csrf(csrf -> csrf.disable())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers(HttpMethod.POST, "/api/v1/auth/signin").permitAll()
-            .requestMatchers(HttpMethod.POST, "/api/v1/auth/signup").permitAll()
-            .requestMatchers(
-                "/swagger-ui/**",
-                "/swagger-resources/*",
-                "/v3/api-docs/**")
-            .permitAll()
-            .requestMatchers(HttpMethod.POST, "/api/v1/persons").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/api/v1/auth/*").permitAll()
+            .requestMatchers(HttpMethod.POST, "/api/v1/books").hasRole("ADMIN")
             .anyRequest().authenticated())
         .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
   }
 
   @Bean
-  public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+  AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
       throws Exception {
     return authenticationConfiguration.getAuthenticationManager();
   }
 
   @Bean
-  public PasswordEncoder passwordEncoder() {
+  PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.m1guelsb.springauth.config.auth.TokenProvider;
 import com.m1guelsb.springauth.dtos.SignInDto;
 import com.m1guelsb.springauth.dtos.SignUpDto;
-import com.m1guelsb.springauth.dtos.SignedDto;
+import com.m1guelsb.springauth.dtos.JwtDto;
 import com.m1guelsb.springauth.entities.User;
 import com.m1guelsb.springauth.services.AuthService;
 
@@ -28,18 +28,18 @@ public class AuthController {
   private TokenProvider tokenService;
 
   @PostMapping("/signup")
-  public ResponseEntity<SignedDto> register(@RequestBody @Valid SignUpDto data) {
+  public ResponseEntity<JwtDto> signUp(@RequestBody @Valid SignUpDto data) {
     var userDetails = service.signUp(data);
 
     var accessToken = tokenService.generateAccessToken((User) userDetails);
     var refreshToken = tokenService.generateRefreshToken((User) userDetails);
 
-    return ResponseEntity.ok(new SignedDto(accessToken, refreshToken, userDetails.getUsername()));
+    return ResponseEntity.ok(new JwtDto(accessToken, refreshToken));
 
   }
 
   @PostMapping("/signin")
-  public ResponseEntity<SignedDto> login(@RequestBody @Valid SignInDto data) {
+  public ResponseEntity<JwtDto> signIn(@RequestBody @Valid SignInDto data) {
     var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
 
     var authUser = authenticationManager.authenticate(usernamePassword);
@@ -47,7 +47,7 @@ public class AuthController {
     var accessToken = tokenService.generateAccessToken((User) authUser.getPrincipal());
     var refreshToken = tokenService.generateRefreshToken((User) authUser.getPrincipal());
 
-    return ResponseEntity.ok(new SignedDto(accessToken, refreshToken, authUser.getName()));
+    return ResponseEntity.ok(new JwtDto(accessToken, refreshToken));
   }
 
 }
