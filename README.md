@@ -1,26 +1,26 @@
-- add spring security dependency
+<p align="center">
+  
+</p>
 
-- add 3 convention tables: 
-users, user_permission, permission
-users: {
-  user_name
-  password
-  account_non_expired
-  account_non_locked
-  credentials_non_expired
-  enabled
-}
+<p align="center">
+  <img alt="Spring" src="https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white"/>
+  
+  <img alt="Java" src="https://img.shields.io/badge/java-orange.svg?style=for-the-badge&logo=openjdk&logoColor=white"/>
+</p>
 
-user_permission {
-  id_user
-  id_permission
-}
+---
 
-permissions {
-  description
-}
+## About 🔍
+In this tutorial we learn how to apply protected routes with jwt authentication and authorization in spring.
 
+## Stack 🔧
+  - Spring 3.1.5
+  - Java 17
+  - hibernate/jpa
+  - lombok
+  - postgresql
 
-- add user repo extending jpa repo with findByUsername method
+---
 
-- add user service implementano UserDetailsService e chaamndo metodo findbyusername tratando se o user nao existir
+>Did you find any bug or wanna tell me something?
+Let me know in my [Twitter/X](https://x.com/m1guelsb).
