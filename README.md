@@ -34,10 +34,7 @@ In this tutorial we learn how to apply protected routes with jwt authentication 
 docker compose up
 
 ```
-2 - Run the application:
-```bash
-mvn spring-boot:run
-```
+2 - Run the application
 
 >Did you find any bug or wanna tell me something?
 Let me know in my [Twitter/X](https://x.com/m1guelsb).
