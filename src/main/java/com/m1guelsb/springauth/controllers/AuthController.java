@@ -2,6 +2,7 @@ package com.m1guelsb.springauth.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,13 +29,9 @@ public class AuthController {
   private TokenProvider tokenService;
 
   @PostMapping("/signup")
-  public ResponseEntity<JwtDto> signUp(@RequestBody @Valid SignUpDto data) {
-    var userDetails = service.signUp(data);
-
-    var accessToken = tokenService.generateAccessToken((User) userDetails);
-    var refreshToken = tokenService.generateRefreshToken((User) userDetails);
-
-    return ResponseEntity.ok(new JwtDto(accessToken, refreshToken));
+  public ResponseEntity<?> signUp(@RequestBody @Valid SignUpDto data) {
+    service.signUp(data);
+    return ResponseEntity.status(HttpStatus.CREATED).build();
 
   }
 
@@ -45,9 +42,8 @@ public class AuthController {
     var authUser = authenticationManager.authenticate(usernamePassword);
 
     var accessToken = tokenService.generateAccessToken((User) authUser.getPrincipal());
-    var refreshToken = tokenService.generateRefreshToken((User) authUser.getPrincipal());
 
-    return ResponseEntity.ok(new JwtDto(accessToken, refreshToken));
+    return ResponseEntity.ok(new JwtDto(accessToken));
   }
 
 }

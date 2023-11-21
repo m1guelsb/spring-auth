@@ -1,4 +1,4 @@
-package com.m1guelsb.springauth.dtos.enums;
+package com.m1guelsb.springauth.enums;
 
 public enum UserRole {
   ADMIN("admin"),

@@ -3,7 +3,6 @@ package com.m1guelsb.springauth.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +18,9 @@ public class AuthService implements UserDetailsService {
   UserRepository repository;
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
+  public UserDetails loadUserByUsername(String username) {
     var user = repository.findByLogin(username);
-
-    if (user != null) {
-      return user;
-    } else {
-      throw new UsernameNotFoundException("Wrong credentials");
-    }
-
+    return user;
   }
 
   public UserDetails signUp(SignUpDto data) throws InvalidJwtException {

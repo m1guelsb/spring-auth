@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.m1guelsb.springauth.dtos.enums.UserRole;
+import com.m1guelsb.springauth.enums.UserRole;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -49,10 +49,10 @@ public class User implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    if (this.role == UserRole.ADMIN)
+    if (this.role == UserRole.ADMIN) {
       return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-    else
-      return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+    return List.of(new SimpleGrantedAuthority("ROLE_USER"));
   }
 
   @Override

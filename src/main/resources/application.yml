@@ -1,10 +1,10 @@
 cors:
-  originPatterns: "http://localhost:3000, https://myfrontend.example "
+  originPatterns: "http://localhost:3000, https://myfrontend.example"
 
 security:
   jwt:
     token:
-      secret-key: jwtsecret
+      secret-key: ${JWT_SECRET}
 
 server:
   port: 8080
