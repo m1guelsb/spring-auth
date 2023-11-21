@@ -18,19 +18,17 @@ import java.time.ZoneOffset;
 public class TokenProvider {
   @Value("${security.jwt.token.secret-key}")
   private String JWT_SECRET;
-  private String JWT_ISSUER = "auth-api";
 
   public String generateAccessToken(User user) {
     try {
       Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
       return JWT.create()
-          .withIssuer(JWT_ISSUER)
           .withSubject(user.getUsername())
           .withClaim("username", user.getUsername())
           .withExpiresAt(genAccessExpirationDate())
           .sign(algorithm);
     } catch (JWTCreationException exception) {
-      throw new RuntimeException("Error while generating token", exception);
+      throw new JWTCreationException("Error while generating token", exception);
     }
   }
 
@@ -38,12 +36,11 @@ public class TokenProvider {
     try {
       Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
       return JWT.require(algorithm)
-          .withIssuer(JWT_ISSUER)
           .build()
           .verify(token)
           .getSubject();
     } catch (JWTVerificationException exception) {
-      return "";
+      throw new JWTVerificationException("Error while validating token", exception);
     }
   }
 
