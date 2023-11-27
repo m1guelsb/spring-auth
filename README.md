@@ -20,10 +20,9 @@ In this tutorial we learn how to apply protected routes with jwt authentication 
 ## Stack 🔧
 - Java 17
 - Spring-boot 3.1.5
-- jwt
-- hibernate/jpa
-- postgresql
-- lombok
+- JWT
+- Hibernate/JPA
+- PostgreSQL
 
 ---
 
